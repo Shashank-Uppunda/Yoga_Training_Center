@@ -1,3 +1,3 @@
 # Yoga Training Center (DBMS) Project
 
-This project aims to develop a Database Management System (DBMS) for a Yoga Training Center. The system is designed to efficiently manage various aspects of the center including membership management, class scheduling, instructor management, and more.
+The Yoga Training Center Database involves the design and implementation of a database system for a Yoga Training Center. The center offers various yoga courses catered to different levels of expertise, conducted by experienced trainers in well-maintained facilities.Furthermore, this database system aims to efficiently manage the operations of a Yoga Training Center, facilitating tasks such as student enrollment, course scheduling, trainer management, and facility maintenance. By organizing data in a structured manner, the center can enhance administrative processes and improve overall service delivery to its students.
