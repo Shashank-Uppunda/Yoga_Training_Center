@@ -1,0 +1,73 @@
+--DISPLAYING ALL TABLES AT THE START
+
+SELECT * FROM STUDENT;
+SELECT * FROM TRAINED_BY;
+SELECT * FROM TRAINER;
+SELECT * FROM ENROLLS;
+SELECT * FROM COURSE;
+SELECT * FROM ROOM;
+SELECT * FROM MAINTENANCE;
+
+
+--GENERAL QUERIES
+
+SELECT CID,course_name,fees FROM COURSE WHERE fees<=5000;
+
+SELECT SID,name,age,gender,asanas_learnt,attendance_status_in_percentage FROM STUDENT WHERE asanas_learnt>2 AND attendance_status_in_percentage>=80;
+
+SELECT S.name, S.age, S.DOB, C.course_name
+FROM STUDENT S
+JOIN ENROLLS E ON S.SID = E.SID
+JOIN COURSE C ON E.CID = C.CID
+WHERE C.course_name = 'Advanced' ORDER BY age DESC;
+
+SELECT MID, name, phone_number, salary FROM MAINTENANCE WHERE MID IN
+(SELECT MID FROM ROOM WHERE RID IN
+(SELECT RID FROM COURSE WHERE CID IN
+(SELECT CID FROM ENROLLS WHERE SID IN
+(SELECT SID FROM TRAINED_BY WHERE TID IN
+(SELECT TID FROM TRAINER WHERE number_of_students>4))))) ORDER BY salary DESC;
+
+SELECT C.course_name, COUNT(E.SID) AS enrollment_count
+FROM COURSE C
+LEFT JOIN ENROLLS E ON C.CID = E.CID
+GROUP BY C.course_name;
+
+SELECT R.*
+FROM ROOM R
+JOIN COURSE C ON R.RID = C.RID
+WHERE C.CID = 301;
+
+SELECT SID,name,age,gender,DOB FROM STUDENT WHERE name LIKE 'S%';
+
+SELECT gender, AVG(attendance_status_in_percentage) AS avg_attendance
+FROM STUDENT
+GROUP BY gender;
+
+SELECT C.course_name, AVG(S.attendance_status_in_percentage) AS avg_attendance
+FROM COURSE C
+JOIN ENROLLS E ON C.CID = E.CID
+JOIN STUDENT S ON E.SID = S.SID
+GROUP BY C.course_name;
+
+SELECT S.name, S.email, S.phone_number
+FROM STUDENT S
+JOIN ENROLLS E ON S.SID = E.SID
+JOIN COURSE C ON E.CID = C.CID
+WHERE C.course_name = 'intermediate';
+
+SELECT SID, name, phone_number, asanas_learnt 
+FROM STUDENT 
+WHERE name LIKE '%Kumar';
+
+SELECT C.course_name, COUNT(E.SID) AS enrollment_count
+FROM COURSE C
+LEFT JOIN ENROLLS E ON C.CID = E.CID
+GROUP BY C.course_name
+HAVING COUNT(E.SID) > 1;
+
+SELECT T.name AS trainer_name, COUNT(E.SID) AS students_trained
+FROM TRAINER T
+LEFT JOIN TRAINED_BY TB ON T.TID = TB.TID
+LEFT JOIN ENROLLS E ON TB.SID = E.SID
+GROUP BY T.name;
